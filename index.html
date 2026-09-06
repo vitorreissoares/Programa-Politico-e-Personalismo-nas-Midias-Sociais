@@ -725,7 +725,7 @@ content="Monitoramento das estratégias de comunicação política dos candidato
     }
 
     /* =====================================================
-       FILTROS
+       FILTROS — FOTO PRIMEIRO / MOBILE FRIENDLY
        ===================================================== */
 
     .candidate-filter-bar {
@@ -733,63 +733,141 @@ content="Monitoramento das estratégias de comunicação política dos candidato
       align-items: center;
       flex-wrap: wrap;
       gap: 10px;
-
       margin-bottom: 14px;
-      padding: 10px 14px;
-
-      border: 1px solid var(--border);
-      border-radius: 8px;
-
-      background: #f8fafc;
+      padding: 8px 10px;
+      border: 1px solid rgba(25, 45, 60, .08);
+      border-radius: 12px;
+      background: rgba(248, 250, 252, .78);
     }
 
     .filter-label {
       display: flex;
       align-items: center;
       gap: 6px;
-
-      color: var(--primary);
-
-      font-size: .78rem;
+      color: #84919a;
+      font-size: .7rem;
       font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .filter-label i {
+      color: #a0aab2;
+      font-size: .72rem;
     }
 
     .filter-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
     }
 
     .candidate-filter-btn {
-      padding: 5px 13px;
-
-      border: 1px solid var(--border);
-      border-radius: 20px;
-
+      position: relative;
+      width: 42px;
+      height: 42px;
+      padding: 2px;
+      border: 1px solid #dfe5ea;
+      border-radius: 50%;
       background: #fff;
       color: var(--text);
-
-      font-size: .78rem;
-      font-weight: 600;
-
       cursor: pointer;
+      overflow: visible;
+      transition: transform .18s ease, border-color .18s ease,
+                  box-shadow .18s ease, opacity .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-      transition: .2s ease;
+    .candidate-filter-btn::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background-image: var(--candidate-photo);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    .candidate-filter-btn::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      bottom: -1px;
+      width: 15px;
+      height: 15px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(25, 45, 60, .10);
+      opacity: 0;
+      transform: scale(.65);
+      transition: opacity .18s ease, transform .18s ease, background .18s ease;
+      z-index: 2;
     }
 
     .candidate-filter-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: #f0f4f8;
+      transform: translateY(-1px);
+      border-color: #c5d0d8;
+      box-shadow: 0 4px 10px rgba(25, 45, 60, .10);
+    }
+
+    .candidate-filter-btn:focus-visible {
+      outline: 2px solid rgba(36, 91, 143, .25);
+      outline-offset: 3px;
     }
 
     .candidate-filter-btn.active {
-      border-color: var(--primary);
+      border-color: var(--candidate-color, var(--primary));
+      box-shadow: 0 0 0 2px rgba(36, 91, 143, .08);
+      transform: translateY(-1px);
+    }
 
-      background: var(--primary);
+    .candidate-filter-btn.active::after {
+      content: "✓";
+      opacity: 1;
+      transform: scale(1);
+      background: var(--candidate-color, var(--primary));
       color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      line-height: 1;
+    }
 
-      box-shadow: 0 2px 6px rgba(36, 91, 143, .25);
+    .candidate-filter-name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .engagement-filter-bar {
+      margin-bottom: 6px;
+    }
+
+    .engagement-filter-note {
+      margin: 0 0 14px;
+      color: #8b969e;
+      font-size: .66rem;
+      line-height: 1.45;
+    }
+
+    .filter-selection-count {
+      color: #8b969e;
+      font-size: .65rem;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      margin-left: 2px;
     }
 
     /* =====================================================
@@ -988,6 +1066,76 @@ content="Monitoramento das estratégias de comunicação política dos candidato
     }
 
     @media (max-width: 600px) {
+      .candidate-filter-bar {
+        align-items: flex-start;
+        gap: 7px;
+        padding: 9px 8px;
+      }
+
+      .filter-label {
+        width: 100%;
+      }
+
+      .filter-buttons {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 1px 2px 3px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .filter-buttons::-webkit-scrollbar {
+        display: none;
+      }
+
+      .candidate-filter-btn {
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
+      }
+
+      .filter-selection-count {
+        position: sticky;
+        right: 0;
+        flex: 0 0 auto;
+        align-self: center;
+        padding: 6px 8px;
+        border: 1px solid rgba(25, 45, 60, .08);
+        border-radius: 999px;
+        background: rgba(255,255,255,.94);
+      }
+
+      .engagement-filter-note {
+        font-size: .64rem;
+      }
+
+      .chart-wrap {
+        height: 305px;
+      }
+
+      .subcategory-chart-wrap {
+        height: 335px;
+      }
+
+      .subcategory-chart-card {
+        min-height: 375px;
+      }
+
+      .chart-card,
+      .subcategory-chart-card {
+        padding: 12px;
+      }
+
+      .chart-title {
+        font-size: .82rem;
+      }
+
+      .chart-note {
+        font-size: .67rem;
+      }
+
       .header-inner {
         grid-template-columns: 1fr;
         text-align: center;
@@ -2002,6 +2150,24 @@ content="Monitoramento das estratégias de comunicação política dos candidato
     id="engajamento"
   >
 
+    <div class="candidate-filter-bar engagement-filter-bar">
+
+      <span class="filter-label">
+        <i class="fas fa-filter"></i>
+        Filtrar por candidato:
+      </span>
+
+      <div
+        id="engagementCandidateFilterButtons"
+        class="filter-buttons"
+      ></div>
+
+    </div>
+
+    <p class="engagement-filter-note">
+      Sem seleção, o ranking mostra todos os candidatos. Marque uma ou mais fotos para comparar apenas os candidatos escolhidos.
+    </p>
+
     <div class="engagement-grid">
 
       <div class="engagement-card">
@@ -2323,6 +2489,9 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
           new Set(),
 
         comentariosSubcategorias:
+          new Set(),
+
+        engajamento:
           new Set()
 
       },
@@ -2342,7 +2511,10 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
       "Inter, system-ui, sans-serif";
 
     Chart.defaults.font.size =
-      11;
+      10.5;
+
+    Chart.defaults.animation.duration =
+      280;
 
     Chart.defaults.color =
       "#66737d";
@@ -3196,14 +3368,11 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
           containerId
         );
 
-
       if (!container) {
         return;
       }
 
-
       container.innerHTML = "";
-
 
       STATE.candidatos.forEach(
         candidato => {
@@ -3213,18 +3382,32 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
               "button"
             );
 
+          botao.type = "button";
+          botao.className = "candidate-filter-btn";
 
-          botao.type =
-            "button";
+          const foto =
+            CONFIG.candidateImages[candidato] || "";
 
+          botao.style.setProperty(
+            "--candidate-photo",
+            `url("${foto}")`
+          );
 
-          botao.className =
-            "candidate-filter-btn";
+          botao.style.setProperty(
+            "--candidate-color",
+            getCandidateColor(candidato, "strong")
+          );
 
-
-          botao.textContent =
+          botao.dataset.candidate =
             candidato;
 
+          botao.title =
+            candidato;
+
+          botao.setAttribute(
+            "aria-label",
+            `Selecionar ${candidato}`
+          );
 
           botao.setAttribute(
             "aria-pressed",
@@ -3233,41 +3416,40 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
               : "false"
           );
 
+          const nomeAcessivel =
+            document.createElement(
+              "span"
+            );
+
+          nomeAcessivel.className =
+            "candidate-filter-name";
+
+          nomeAcessivel.textContent =
+            candidato;
+
+          botao.appendChild(
+            nomeAcessivel
+          );
 
           botao.addEventListener(
             "click",
             () => {
 
-              if (
-                estado.has(
-                  candidato
-                )
-              ) {
-
-                estado.delete(
-                  candidato
-                );
-
+              if (estado.has(candidato)) {
+                estado.delete(candidato);
               } else {
-
-                estado.add(
-                  candidato
-                );
-
+                estado.add(candidato);
               }
-
 
               atualizarEstadoVisualFiltro(
                 container,
                 estado
               );
 
-
               onChange();
 
             }
           );
-
 
           container.appendChild(
             botao
@@ -3276,6 +3458,22 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
         }
       );
 
+      const contador =
+        document.createElement(
+          "span"
+        );
+
+      contador.className =
+        "filter-selection-count";
+
+      contador.setAttribute(
+        "aria-live",
+        "polite"
+      );
+
+      container.appendChild(
+        contador
+      );
 
       atualizarEstadoVisualFiltro(
         container,
@@ -3290,6 +3488,10 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
       estado
     ) {
 
+      if (!container) {
+        return;
+      }
+
       container
         .querySelectorAll(
           ".candidate-filter-btn"
@@ -3298,30 +3500,40 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
           botao => {
 
             const candidato =
-              botao.textContent.trim();
-
+              botao.dataset.candidate ||
+              botao.querySelector(
+                ".candidate-filter-name"
+              )?.textContent.trim();
 
             const ativo =
-              estado.has(
-                candidato
-              );
-
+              estado.has(candidato);
 
             botao.classList.toggle(
               "active",
               ativo
             );
 
-
             botao.setAttribute(
               "aria-pressed",
-              ativo
-                ? "true"
-                : "false"
+              ativo ? "true" : "false"
             );
 
           }
         );
+
+      const contador =
+        container.querySelector(
+          ".filter-selection-count"
+        );
+
+      if (contador) {
+        const total = estado.size;
+
+        contador.textContent =
+          total
+            ? `${total} selecionado${total > 1 ? "s" : ""}`
+            : "Selecione candidatos";
+      }
 
     }
 
@@ -3537,7 +3749,18 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
                   display:
                     true,
                   position:
-                    "bottom"
+                    "bottom",
+                  labels: {
+                    usePointStyle: true,
+                    pointStyle: "rectRounded",
+                    boxWidth: 9,
+                    boxHeight: 9,
+                    padding: 10,
+                    font: {
+                      size: 9.5,
+                      weight: "600"
+                    }
+                  }
                 },
 
                 tooltip: {
@@ -4898,10 +5121,10 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
               pontos,
 
             pointRadius:
-              5,
+              4.5,
 
             pointHoverRadius:
-              8,
+              7,
 
             pointBackgroundColor:
               pontos.map(
@@ -5269,8 +5492,27 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
             "";
 
 
+          const selecionados =
+            [
+              ...STATE
+                .candidatosSelecionados
+                .engajamento
+            ];
+
+          const dadosBase =
+            selecionados.length
+              ? STATE.dados.filter(
+                  item =>
+                    selecionados.includes(
+                      normalizarCandidato(
+                        item.candidato
+                      )
+                    )
+                )
+              : [...STATE.dados];
+
           const dadosOrdenados =
-            [...STATE.dados]
+            dadosBase
               .filter(
                 item =>
                   parseNumero(
@@ -5728,7 +5970,36 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
                     true,
 
                   position:
-                    "bottom"
+                    "bottom",
+
+                  labels: {
+
+                    usePointStyle:
+                      true,
+
+                    pointStyle:
+                      "circle",
+
+                    boxWidth:
+                      8,
+
+                    boxHeight:
+                      8,
+
+                    padding:
+                      9,
+
+                    font: {
+
+                      size:
+                        9.5,
+
+                      weight:
+                        "600"
+
+                    }
+
+                  }
 
                 },
 
@@ -6301,6 +6572,22 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
       criarFiltroCandidatos({
 
         containerId:
+          "engagementCandidateFilterButtons",
+
+        estado:
+          STATE
+            .candidatosSelecionados
+            .engajamento,
+
+        onChange:
+          renderizarListasEngajamento
+
+      });
+
+
+      criarFiltroCandidatos({
+
+        containerId:
           "formatCandidateFilterButtons",
 
         estado:
@@ -6820,15 +7107,83 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
     }
 
 
+    let carouselAutoTimer = null;
+    let carouselResumeTimer = null;
+    let carouselPaused = false;
+
+
+    function pausarCarrosselAutomatico() {
+
+      carouselPaused = true;
+
+      if (carouselAutoTimer) {
+        clearInterval(carouselAutoTimer);
+        carouselAutoTimer = null;
+      }
+
+      if (carouselResumeTimer) {
+        clearTimeout(carouselResumeTimer);
+        carouselResumeTimer = null;
+      }
+
+    }
+
+
+    function retomarCarrosselAutomatico(delay = 2200) {
+
+      if (carouselResumeTimer) {
+        clearTimeout(carouselResumeTimer);
+      }
+
+      carouselResumeTimer =
+        setTimeout(() => {
+          carouselPaused = false;
+          iniciarCarrosselAutomatico();
+        }, delay);
+
+    }
+
+
+    function iniciarCarrosselAutomatico() {
+
+      if (carouselAutoTimer || carouselPaused) {
+        return;
+      }
+
+      carouselAutoTimer =
+        setInterval(() => {
+
+          const max = carouselMaxPosition();
+
+          if (!max) {
+            return;
+          }
+
+          if (STATE.carouselPosition >= max) {
+            STATE.carouselPosition = 0;
+          } else {
+            STATE.carouselPosition++;
+          }
+
+          atualizarCarrossel();
+
+        }, 3600);
+
+    }
+
+
     function inicializarCarrossel() {
 
       carousel.prev?.addEventListener(
         "click",
         () => {
 
+          pausarCarrosselAutomatico();
+
           STATE.carouselPosition--;
 
           atualizarCarrossel();
+          retomarCarrosselAutomatico();
 
         }
       );
@@ -6838,21 +7193,69 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
         "click",
         () => {
 
+          pausarCarrosselAutomatico();
           STATE.carouselPosition++;
 
           atualizarCarrossel();
+          retomarCarrosselAutomatico();
 
         }
       );
 
 
+      carousel.dots?.addEventListener(
+        "click",
+        () => {
+          pausarCarrosselAutomatico();
+          retomarCarrosselAutomatico();
+        }
+      );
+
+
+      carousel.track?.addEventListener(
+        "mouseenter",
+        pausarCarrosselAutomatico
+      );
+
+      carousel.track?.addEventListener(
+        "mouseleave",
+        () => retomarCarrosselAutomatico(600)
+      );
+
+      carousel.track?.addEventListener(
+        "touchstart",
+        pausarCarrosselAutomatico,
+        { passive: true }
+      );
+
+      carousel.track?.addEventListener(
+        "touchend",
+        () => retomarCarrosselAutomatico(1200),
+        { passive: true }
+      );
+
+      carousel.track?.addEventListener(
+        "focusin",
+        pausarCarrosselAutomatico
+      );
+
+      carousel.track?.addEventListener(
+        "focusout",
+        () => retomarCarrosselAutomatico(1200)
+      );
+
+
       window.addEventListener(
         "resize",
-        atualizarCarrossel
+        () => {
+          atualizarCarrossel();
+        }
       );
 
 
       atualizarCarrossel();
+
+      iniciarCarrosselAutomatico();
 
     }
 
@@ -6935,6 +7338,22 @@ Grupo de trabalho formado por Vitor Reis, Malu Alden, Malu Paschoal, Natália Lu
 
       }
 
+
+      carousel.cards.forEach(
+        card => {
+
+          const cardCandidate =
+            normalizarCandidato(
+              card.dataset.candidate
+            );
+
+          card.classList.toggle(
+            "active",
+            estado.has(cardCandidate)
+          );
+
+        }
+      );
 
       criarGraficoApelos();
 
